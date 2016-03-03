@@ -90,12 +90,12 @@ app.get('/search', function(req, res) {
         console.log("\n\n================= sending... =================\n\n");
         console.log(hits);
         console.log("\n\n================= sent =================\n\n");
+        res.setHeader('Content-Type', 'application/json');
         res.send(hits);
     }, function(err) {
         console.log("\n\n============== ERROR =============\n\n");
         res.send("error");
         console.trace(err.message);
     });
-    //res.send("TEST");
 });
 
