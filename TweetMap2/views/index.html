@@ -15,7 +15,15 @@
                 alert("AJAX error in request: " + JSON.stringify(err, null, 2));
             },
             success: function(data, status) {
-                alert("Data: " + data + "\nStatus: " + status);
+                $("#ajaxResponse").html("");
+                for(var i = 0; i < data.length; i++) {
+                    var d = data[i];
+                    var lat = d._source.location.lat;
+                    var lon = d._source.location.lon;
+                    $("#ajaxResponse").append("text: " + d._source.text + "<br/>latitude: " + lat + ", longitude: " + lon + "<br/><br/>");
+                    console.log("text: " + d._source.text + "\nlatitude: " + lat + ", longitude: " + lon + "\n");
+                }
+                
             },
         });
     }
@@ -26,8 +34,14 @@
 
 <form>
     Search for: <input type="text" id="searchBar">
-    <button onclick="search()">Search</button>
+    <button onclick="search(); return false;">Search</button>
 </form>
+<div id="anotherSection">
+    <fieldset>
+      <legend>Response</legend>
+      <div id="ajaxResponse"></div>
+    </fieldset>
+</div>
 
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYmTfTysq82Yq56eFrIw9i4jQ7c4HnJw0&libraries=places&callback=initSessionMap" async defer></script> -->
 </body>
