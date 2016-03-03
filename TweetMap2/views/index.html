@@ -1,11 +1,12 @@
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="main.css" />
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script>
     function search() {
         var keywords = document.getElementById("searchBar").value;
-        
+
         $.ajax({
             async: false,
             dataType: "json",
@@ -15,16 +16,14 @@
                 alert("AJAX error in request: " + JSON.stringify(err, null, 2));
             },
             success: function(data, status) {
-                $("#ajaxResponse").html("");
-                for(var i = 0; i < data.length; i++) {
-                    var d = data[i];
-                    var lat = d._source.location.lat;
-                    var lon = d._source.location.lon;
-                    $("#ajaxResponse").append("text: " + d._source.text + "<br/>latitude: " + lat + ", longitude: " + lon + "<br/><br/>");
-                    console.log("text: " + d._source.text + "\nlatitude: " + lat + ", longitude: " + lon + "\n");
-                }
-                
-            },
+                var tweets = [];
+                data.forEach(function(tweet) {
+                    var location = { lat: tweet._source.location.lat,
+                                     lon: tweet._source.location.lon};
+                    tweets.push(location);
+                });
+                displayTweets(tweets);
+            }
         });
     }
     </script>
@@ -36,13 +35,10 @@
     Search for: <input type="text" id="searchBar">
     <button onclick="search(); return false;">Search</button>
 </form>
-<div id="anotherSection">
-    <fieldset>
-      <legend>Response</legend>
-      <div id="ajaxResponse"></div>
-    </fieldset>
-</div>
 
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYmTfTysq82Yq56eFrIw9i4jQ7c4HnJw0&libraries=places&callback=initSessionMap" async defer></script> -->
+<div id="map"></div>
+<script src="gmaps.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlaLk8GbtnpzMZhSjC84Kmt3qp_QccR-g&callback=initBigMap" async defer></script>
+
 </body>
 </html>
