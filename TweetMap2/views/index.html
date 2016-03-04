@@ -5,12 +5,12 @@
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script>
     function search() {
-        var keywords = document.getElementById("searchBar").value;
+        var keyword = document.getElementById("keywordSelect").value;
 
         $.ajax({
             async: false,
             dataType: "json",
-            url: "/search?q=" + keywords,
+            url: "/search?q=" + keyword,
             type: "GET",
             error: function(err) {
                 alert("AJAX error in request: " + JSON.stringify(err, null, 2));
@@ -30,11 +30,24 @@
     </script>
 </head>
 <body>
-<h1>Rendered Page</h1>
+<h1>TweetMap</h1>
 
 <form>
-    Search for: <input type="text" id="searchBar">
-    <button onclick="search(); return false;">Search</button>
+    Search for tweets related to: 
+    <select id="keywordSelect" onchange="search()">
+        <option disabled selected> - Select a keyword - </option>
+        <option value="super tuesday">Super Tuesday</option>
+        <option value="trump">Trump</option>
+        <option value="clinton">Clinton</option>
+        <option value="GOP">GOP</option>
+        <option value="democratic">Democratic</option>
+        <option value="republican">Republican</option>
+        <option value="primary">Primary</option>
+        <option value="rubio">Rubio</option>
+        <option value="cruz">Cruz</option>
+        <option value="debate">Debate</option>
+    </select>
+
 </form>
 
 <div id="map"></div>

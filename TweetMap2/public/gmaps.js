@@ -1,4 +1,5 @@
 var map;
+var markers = [];
 
 function initBigMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -23,6 +24,10 @@ function initBigMap() {
 }
 
 function displayTweets(tweets) {
+    for(var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    markers = [];
     tweets.forEach(function(location) {
         var position_options = {
           lat: location.lat,
@@ -41,5 +46,7 @@ function displayTweets(tweets) {
         marker.addListener('click', function() {
           infowindow.open(map, marker);
         });
+
+        markers.push(marker);
     });
 }
