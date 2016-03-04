@@ -28,7 +28,10 @@ var keywords = [
     'GOP',
     'democratic',
     'republican',
-    'primary'
+    'primary',
+    'rubio',
+    'cruz',
+    'debate'
 ];
 var params = {track:keywords.join(', ') };
 tClient.stream('statuses/filter', params, function(stream) {

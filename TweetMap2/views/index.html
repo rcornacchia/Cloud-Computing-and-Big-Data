@@ -18,9 +18,10 @@
             success: function(data, status) {
                 var tweets = [];
                 data.forEach(function(tweet) {
-                    var location = { lat: tweet._source.location.lat,
-                                     lon: tweet._source.location.lon};
-                    tweets.push(location);
+                    var location_text = { lat: tweet._source.location.lat,
+                                        lon: tweet._source.location.lon,
+                                        tweet_text: tweet._source.text};
+                    tweets.push(location_text);
                 });
                 displayTweets(tweets);
             }

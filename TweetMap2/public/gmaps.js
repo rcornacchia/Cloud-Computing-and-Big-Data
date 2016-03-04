@@ -33,5 +33,13 @@ function displayTweets(tweets) {
           position: position_options,
           map: map
         });
+
+        var infowindow = new google.maps.InfoWindow({
+          content: location.tweet_text
+        });
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
     });
 }
